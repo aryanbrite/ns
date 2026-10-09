@@ -40,12 +40,13 @@ def get_scholar_citations() -> None:
     """Fetch and update Google Scholar citation data."""
     print(f"Fetching citations for Google Scholar ID: {SCHOLAR_USER_ID}")
     today = datetime.now().strftime("%Y-%m-%d")
+    existing_data = {}
 
     # Check if the output file was already updated today
     if os.path.exists(OUTPUT_FILE):
         try:
             with open(OUTPUT_FILE, "r") as f:
-                existing_data = yaml.safe_load(f)
+                existing_data = yaml.safe_load(f) or {}
             if (
                 existing_data
                 and "metadata" in existing_data
